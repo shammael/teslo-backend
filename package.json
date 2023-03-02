@@ -19,10 +19,11 @@
     "zod": "^3.20.6"
   },
   "scripts": {
-    "dev:start": "nodemon --experimental-modules ./build/index.js",
     "dev:build": "tsc -w",
     "dev": "nodemon",
-    "test": "vitest"
+    "test": "vitest",
+    "build": "tsc && tsc-alias",
+    "start": "node ./build/infrastructure/express/server.js"
   },
   "devDependencies": {
     "@swc/core": "^1.3.35",
@@ -44,6 +45,7 @@
     "eslint-plugin-import": "^2.25.3",
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.2",
     "tsconfig-paths": "^4.1.2",
     "typescript": "^4.9.5",
     "vitest": "^0.28.4"

@@ -4,7 +4,7 @@ import GenericCreatedResponse from './generic-created.response';
 describe('Generic created response', () => {
   it('should have properties statusCode and body', async () => {
     const sut = new GenericCreatedResponse();
-    const resp = await sut.response({ hola: 'test' });
+    const resp = await sut.response({ body: { hola: 'test' } });
     expect(resp).toEqual({ statusCode: 201, body: { hola: 'test' } });
   });
 });

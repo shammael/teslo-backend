@@ -1,18 +1,16 @@
 /* eslint-disable max-classes-per-file */
 import { ExistError } from '@/application/errors';
-import {
-  ICreateProductRepository,
-  IFindProductBySlugRepository,
-} from '@/application/ports/repositories/product';
+import { ICreateProductRepository } from '@/application/ports/repositories/product';
 import IProduct from '@/domain/models/product/product.model';
 import { TCreateProduct } from '@/domain/models/product/request';
 import slugify from '@/common/slugify';
 import { describe, expect, it, vi } from 'vitest';
 import CreateProductUseCase from './create-product.use-case';
+import IGetProductBySlugRepository from '@/application/ports/repositories/product/find-product-by-slug.repository';
 
 const findProductRepositoryMockFactory = () => {
-  class FindProductRepositoryMock implements IFindProductBySlugRepository {
-    find(slug: string): Promise<IProduct | null> {
+  class FindProductRepositoryMock implements IGetProductBySlugRepository {
+    get(slug: string): Promise<IProduct | null> {
       return new Promise((resolve, reject) => {
         resolve(null);
       });
@@ -85,7 +83,7 @@ describe('Create product [use-case]', () => {
       const { sut, productRequest, findProductRepositoryMock } = sutFactory();
       const findProductRepositorySpy = vi.spyOn(
         findProductRepositoryMock,
-        'find'
+        'get'
       );
 
       // Act
@@ -98,7 +96,7 @@ describe('Create product [use-case]', () => {
       const { sut, productRequest, findProductRepositoryMock } = sutFactory();
       const findProductRepositorySpy = vi.spyOn(
         findProductRepositoryMock,
-        'find'
+        'get'
       );
 
       await sut.create(productRequest);
@@ -116,7 +114,7 @@ describe('Create product [use-case]', () => {
         productResponse,
       } = sutFactory();
 
-      vi.spyOn(findProductRepositoryMock, 'find').mockResolvedValueOnce(
+      vi.spyOn(findProductRepositoryMock, 'get').mockResolvedValueOnce(
         productResponse
       );
 
@@ -133,7 +131,7 @@ describe('Create product [use-case]', () => {
         productResponse,
       } = sutFactory();
 
-      vi.spyOn(findProductRepositoryMock, 'find').mockResolvedValueOnce(
+      vi.spyOn(findProductRepositoryMock, 'get').mockResolvedValueOnce(
         productResponse
       );
 
@@ -149,7 +147,7 @@ describe('Create product [use-case]', () => {
         productResponse,
       } = sutFactory();
 
-      vi.spyOn(findProductRepositoryMock, 'find').mockResolvedValueOnce(
+      vi.spyOn(findProductRepositoryMock, 'get').mockResolvedValueOnce(
         productResponse
       );
 

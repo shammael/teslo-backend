@@ -77,7 +77,7 @@ describe('ProductRepository', () => {
         .spyOn(model, 'findOne')
         .mockImplementationOnce(modelFindResponseMock as any);
 
-      await sut.find(requestSlug.slug);
+      await sut.get(requestSlug.slug);
 
       expect(findMethodSpy).toBeCalledWith(requestSlug);
     });
@@ -88,7 +88,7 @@ describe('ProductRepository', () => {
         lean: vi.fn().mockResolvedValueOnce(responseFind),
       }));
 
-      const result = await sut.find(requestSlug.slug);
+      const result = await sut.get(requestSlug.slug);
 
       expect(result).toEqual(responseFind);
     });
